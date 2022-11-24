@@ -1,0 +1,39 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+    PlaceOrder
+{% endblock %}
+
+
+{% block body_block %}
+    {% if prodlist %}
+        <h2>List of products</h2>
+        <ol>
+            {% for product in prodlist %}
+                {% if product.available %}
+                    <li> {{ product.name }} </li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+        {% if user.is_authenticated %}
+            <div class = "form-group">
+            <h2 style = "text-align: left;">Order form</h2>
+            <form method = "POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type = "submit" class = "btn btn-primary">Place Order</button>
+            </form>
+            </div>
+
+            {% if msg %}
+                <p>{{ msg }}</p>
+            {% endif %}
+        {% else %}
+            <h3>You Need to <a style="color:#834d9b;" href="{% url 'myapp:login' %}">Login</a> to Place Order</h3>
+        {% endif %}
+
+    {% else %}
+        <strong>There are no available products!</strong>
+    {% endif %}
+{#    <p><a href="{% url 'myapp:index' %}">Index page</a></p>#}
+{% endblock %}

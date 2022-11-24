@@ -1,0 +1,19 @@
+{% extends 'myapp/base.html' %}
+{% block body_block %}
+    {% if cat_list %}
+    <h2>List of Categories</h2>
+    <ol>
+        {% for cat in cat_list %}
+            <li><a href="{% url 'myapp:detail' cat.id %}">{{ cat.name }}</a></li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <strong>There are no available categories!</strong>
+{% endif %}
+    {% if request.session.last_login %}
+        <h2>last login: {{ request.session.last_login }}</h2>
+    {% else %}
+        <h2>Your last login was more than one hour ago</h2>
+    {% endif %}
+    <p class="hbar1"><a href="{% url 'myapp:about' %}">About page</a></p>
+{% endblock %}

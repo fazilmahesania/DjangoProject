@@ -1,0 +1,147 @@
+/*h1 {*/
+/*    background-color: cadetblue;*/
+/*    color: whitesmoke;*/
+/*    font-size: medium;*/
+/*    position: center;*/
+/*}*/
+
+/*.hbar1 {*/
+/* display: inline;*/
+/* margin: 15px;*/
+/*}*/
+
+
+/* === BASE HEADING === */
+
+h1 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  color: #080808;
+  -webkit-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+h1 span {
+  display: block;
+  font-size: 0.5em;
+  line-height: 1.3;
+}
+h1 em {
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* === HEADING STYLE #1 === */
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+}
+h1:before {
+  width: 28px;
+  height: 5px;
+  display: block;
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  margin-left: -14px;
+  background-color: #834d9b;
+}
+h1:after {
+  width: 100px;
+  height: 1px;
+  display: block;
+  content: "";
+  position: relative;
+  margin-top: 25px;
+  left: 50%;
+  margin-left: -50px;
+  background-color: #d04ed6;
+}
+/*This Is On H2*/
+h4{
+    color: #000;
+    border-left: 20px solid #834d9b;
+    padding: 5px;
+    padding-left: 20px;
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px 0px rgb(50 50 50 / 30%);
+    text-decoration: none;
+    display: table;
+}
+/*This Is On H5*/
+h2 {
+    color: #ffffff;
+    font-weight: 400;
+    background: linear-gradient(
+58deg
+,#834d9b,#d04ed6);
+    width: auto;
+    font-size: 20px;
+    line-height: 1;
+    margin: 10px 10px 30px 0px;
+    padding: 14px;
+    border-left: 10px solid #d04ed6;
+    box-shadow: 4px 2px 15px 0px rgb(199 199 199);
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+  border: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+  display: block;
+  width: 200px;
+}
+
+li a:hover {
+  font-size: 30px;
+  background: #f6f6f6;
+}
+
+
+.hbar1 {
+ display: inline;
+ margin: 15px;
+}
+
+.hbar1 a{
+ display: inline !important;
+        background: linear-gradient(
+58deg
+,#834d9b,#d04ed6);
+    padding: 5px 10px;
+    border-radius: 25px;
+    color: #ffffff;
+}
+.hbar1 a:hover{
+           background: linear-gradient(
+58deg
+,#d04ed6,#834d9b);
+}
