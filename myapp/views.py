@@ -3,7 +3,7 @@ import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls.base import reverse
 
-from .forms import OrderForm, InterestForm
+from .forms import OrderForm, InterestForm, RegisterForm
 from .models import Category, Product, Client, Order
 from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render
@@ -99,7 +99,7 @@ def user_login(request):
             print(request.session.keys(), request.session.values())
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('myapp:index'))
+                return HttpResponseRedirect(reverse('myapp:myorders'))
             else:
                 return HttpResponse('Your account is disabled.')
         else:
@@ -127,3 +127,16 @@ def user_logout(request):
     logout(request)
     # return HttpResponseRedirect(reverse(('myapp:index')))
     return render(request, 'myapp/login.html')
+
+
+def user_register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect("myapp:login")
+        else:
+            print('form invalid')
+    else:
+        form = RegisterForm()
+    return render(request=request, template_name="myapp/register.html", context={"register_form": form})
