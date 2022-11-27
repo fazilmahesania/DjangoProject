@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Product, Category, Client, Order
+from .models import Product, Category, Client, Order, Profile
 
 
-def increase_product_stock(request, queryset):
+def increase_product_stock(self, request, queryset):
+    print(queryset)
     for qs in queryset:
         qs.stock += 50
         qs.save()
@@ -34,5 +35,6 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
 admin.site.register(Client, ClientAdmin)
 admin.site.register(Order)
+admin.site.register(Profile)
 
 # Register your models here.

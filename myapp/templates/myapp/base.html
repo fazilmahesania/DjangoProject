@@ -40,6 +40,7 @@
         {% endif %}
             {% if user.is_authenticated %}
             <li class="hbar1"><a href="{% url 'myapp:myorders' %}">My Orders</a></li>
+            <li class="hbar1"><a href="{% url 'myapp:users-profile' %}">My Profile</a></li>
             <li class="hbar1"><a href="{% url 'myapp:logout' %}">Logout</a></li>
         {% else %}
             <li class="hbar1"><a href="{% url 'myapp:login' %}">Login</a></li>

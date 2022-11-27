@@ -3,12 +3,18 @@ import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls.base import reverse
 
-from .forms import OrderForm, InterestForm, RegisterForm
+from .forms import OrderForm, InterestForm, RegisterForm, UpdateUserForm, UpdateProfileForm
 from .models import Category, Product, Client, Order
 from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+
+# from datetime import datetime
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse, reverse_lazy
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -108,7 +114,17 @@ def user_login(request):
         return render(request, 'myapp/login.html')
 
 
-@login_required
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'myapp/password_reset.html'
+    email_template_name = 'myapp/password_reset_email.html'
+    subject_template_name = 'myapp/password_reset_subject'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('myapp:login')
+
+@login_required(login_url='/myapp/login/')
 def myorders(request):
     user = request.user
     clients = list(Client.objects.values_list('username', flat=True))
@@ -120,6 +136,8 @@ def myorders(request):
         return render(request, 'myapp/myorders.html', {'orderlist': orders, 'isClient': True})
     else:
         return render(request, 'myapp/myorders.html', {'orderlist': [], 'isClient': False})
+        # return render(request, 'myapp/login.html')
+        # return user_login(request)
 
 
 @login_required
@@ -140,3 +158,30 @@ def user_register(request):
     else:
         form = RegisterForm()
     return render(request=request, template_name="myapp/register.html", context={"register_form": form})
+
+
+@login_required
+def profile(request):
+    print(request.method)
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        print(profile_form)
+        print(request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            # messages.success(request, 'Your profile is updated successfully')
+            return redirect('myapp:users-profile')
+        else:
+            print("invalid")
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        # user_form.save()
+        # print(request.user.profile)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'myapp/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
